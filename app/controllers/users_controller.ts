@@ -16,6 +16,7 @@ export default class UsersController {
     })
 
     if (user.$isPersisted) {
+      console.log(githubUser)
       user.merge({
         fullName: githubUser.name,
         email: githubUser.email,

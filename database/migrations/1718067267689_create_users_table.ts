@@ -17,6 +17,8 @@ export default class extends BaseSchema {
       table.timestamp('updated_at').nullable()
 
       table.unique(['oauth_provider_id', 'oauth_provider_name'])
+
+      table.uuid('role_id').references('roles.id').onDelete('CASCADE')
     })
   }
 

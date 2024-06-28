@@ -1,6 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column, manyToMany } from '@adonisjs/lucid/orm'
 import { TalkStatus } from '#enums/talk_status'
+import type { BelongsTo, ManyToMany } from '@adonisjs/lucid/types/relations'
+import Event from '#models/event'
 
 export default class Talk extends BaseModel {
   @column({ isPrimary: true })
@@ -28,9 +30,6 @@ export default class Talk extends BaseModel {
   declare location: string
 
   @column()
-  declare speakerId: string
-
-  @column()
   declare eventId: string
 
   @column.dateTime({ autoCreate: true })
@@ -38,4 +37,12 @@ export default class Talk extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
+
+  @manyToMany(() => Talk, {
+    pivotTable: 'collaborates',
+  })
+  declare talks: ManyToMany<typeof Talk>
+
+  @belongsTo(() => Event)
+  declare event: BelongsTo<typeof Event>
 }

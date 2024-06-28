@@ -25,7 +25,6 @@ export default class extends BaseSchema {
       table.timestamp('updated_at')
 
       table.uuid('event_id').references('events.id').onDelete('CASCADE')
-      table.uuid('speaker_id').references('users.id').onDelete('CASCADE')
     })
   }
 

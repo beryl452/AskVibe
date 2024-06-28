@@ -5,7 +5,28 @@ export default class extends BaseSchema {
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
+      table.uuid('id').primary().defaultTo(this.db.rawQuery('uuid_generate_v4()').knexQuery)
+      table.text('content', 'longtext').notNullable()
+      table
+        .enu('status', ['DRAFT', 'PUBLISHED', 'ARCHIVED'], {
+          useNative: true,
+          enumName: 'post_status',
+          existingType: false,
+          schemaName: 'public',
+        })
+        .defaultTo('DRAFT')
+      table.uuid('postable_id').nullable().references('posts.id').onDelete('CASCADE')
+      table
+        .enu('postable_type', ['App/Models/Question', 'App/Models/Answer'], {
+          useNative: true,
+          enumName: 'postable_type',
+          existingType: false,
+          schemaName: 'public',
+        })
+        .defaultTo('App/Models/Question')
+        .notNullable()
+      table.uuid('created_by').references('participes.id').onDelete('CASCADE')
+      table.uuid('relative_to').references('talks.id').onDelete('CASCADE')
 
       table.timestamp('created_at')
       table.timestamp('updated_at')

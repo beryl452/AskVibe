@@ -1,10 +1,10 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, hasMany, manyToMany } from '@adonisjs/lucid/orm'
 import type { HasMany, ManyToMany } from '@adonisjs/lucid/types/relations'
-import Ability from '#models/ability'
-import User from '#models/user'
+import Resource from '#models/resource'
+import Participe from '#models/participe'
 
-export default class Role extends BaseModel {
+export default class Responsibility extends BaseModel {
   @column({ isPrimary: true })
   declare id: string
 
@@ -17,11 +17,11 @@ export default class Role extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
 
-  @hasMany(() => User)
-  declare users: HasMany<typeof User>
+  @hasMany(() => Participe)
+  declare participes: HasMany<typeof Participe>
 
-  @manyToMany(() => Ability, {
-    pivotTable: 'role_abilities',
+  @manyToMany(() => Resource, {
+    pivotTable: 'responsability_resources',
   })
-  declare abilities: ManyToMany<typeof Ability>
+  declare resources: ManyToMany<typeof Resource>
 }

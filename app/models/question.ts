@@ -1,13 +1,15 @@
-import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
+import type { HasMany } from '@adonisjs/lucid/types/relations'
+import Post from '#models/post'
+import { PostableType } from '#enums/postable_type'
 
 export default class Question extends BaseModel {
   @column({ isPrimary: true })
-  declare id: number
+  declare id: string
 
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime
-
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare updatedAt: DateTime
+  @hasMany(() => Post, {
+    foreignKey: 'postableId',
+    onQuery: (query) => query.where('postable_type', PostableType.QUESTION),
+  })
+  declare post: HasMany<typeof Post>
 }
