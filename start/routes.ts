@@ -8,8 +8,8 @@
 */
 
 import router from '@adonisjs/core/services/router'
-const UsersController = () => import('#controllers/users_controller')
+const AuthController = () => import('#auth/controllers/auth_controller')
 
 router.on('/').renderInertia('home', { version: 6 })
-router.get('/oauth/:provider/redirect', [UsersController, 'redirect']).where('provider', /github/)
-router.get('/oauth/:provider/callback', [UsersController, 'callback']).where('provider', /github/)
+router.get('/oauth/:provider/redirect', [AuthController, 'redirect']).where('provider', /github/)
+router.get('/oauth/:provider/callback', [AuthController, 'callback']).where('provider', /github/)

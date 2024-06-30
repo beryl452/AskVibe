@@ -5,7 +5,7 @@ const allyConfig = defineConfig({
   github: services.github({
     clientId: env.get('GITHUB_CLIENT_ID'),
     clientSecret: env.get('GITHUB_CLIENT_SECRET'),
-    callbackUrl: 'http://127.0.0.1:3333/oauth/github/callback',
+    callbackUrl: env.get('GITHUB_CALLBACK_URL') as string,
   }),
 })
 

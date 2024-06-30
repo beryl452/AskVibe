@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
-import User from '#models/user'
+import User from '#auth/models/user'
 import Event from '#models/event'
 import Vote from '#models/vote'
 import Responsibility from '#models/responsibility'
