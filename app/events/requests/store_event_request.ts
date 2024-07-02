@@ -1,0 +1,75 @@
+import { HttpContext } from '@adonisjs/core/http'
+import vine from '@vinejs/vine'
+import { inject } from '@adonisjs/core'
+import { DateTime } from 'luxon'
+
+@inject()
+export default class StoreEventRequest {
+  constructor(private ctx: HttpContext) {}
+
+  validator = vine.compile(
+    vine.object({
+      title: vine.string().trim().minLength(3).maxLength(255),
+      description: vine.string().trim().minLength(10),
+      start_date: vine
+        .date({
+          formats: ['YYYY-MM-DD', 'x'],
+        })
+        .after('today')
+        .transform((value) => {
+          return DateTime.fromJSDate(value)
+        }),
+      end_date: vine
+        .date({
+          formats: ['YYYY-MM-DD', 'x'],
+        })
+        .afterField('start_date')
+        .transform((value) => {
+          return DateTime.fromJSDate(value)
+        }),
+      location: vine.string().trim().minLength(3).maxLength(255),
+      cover: vine.file({
+        size: '2mb',
+        extnames: ['jpg', 'jpeg', 'png'],
+      }),
+      is_public: vine.boolean(),
+
+      organizer_id: vine.string().uuid().isExists({ table: 'users', column: 'id' }),
+    })
+  )
+
+  async handle() {
+    const { request } = this.ctx
+    const eventData = request.only([
+      'title',
+      'description',
+      'start_date',
+      'end_date',
+      'location',
+      'cover',
+      'is_public',
+      'organizer_id',
+    ])
+
+    if (request.file('cover')) {
+      eventData.cover = request.file('cover')
+    }
+    if (typeof eventData.is_public === 'string') {
+      eventData.is_public = eventData.is_public === '1'
+    }
+
+    if (eventData.start_date) {
+      eventData.start_date = DateTime.fromISO(eventData.start_date, { setZone: true }).toISO()
+      console.log(eventData.start_date)
+    }
+
+    if (eventData.end_date) {
+      eventData.end_date = DateTime.fromISO(eventData.end_date, { setZone: true }).toISO()
+    }
+    return request.validateUsing(this.validator, {
+      data: {
+        ...eventData,
+      },
+    })
+  }
+}

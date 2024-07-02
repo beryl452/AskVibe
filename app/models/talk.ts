@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 import { BaseModel, belongsTo, column, manyToMany } from '@adonisjs/lucid/orm'
 import { TalkStatus } from '#enums/talk_status'
 import type { BelongsTo, ManyToMany } from '@adonisjs/lucid/types/relations'
-import Event from '#models/event'
+import Event from '#events/models/event'
 
 export default class Talk extends BaseModel {
   @column({ isPrimary: true })

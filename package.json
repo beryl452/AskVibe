@@ -16,7 +16,6 @@
   "imports": {
     "#core/*": "./app/core/*.js",
     "#auth/*": "./app/auth/*.js",
-
     "#controllers/*": "./app/controllers/*.js",
     "#exceptions/*": "./app/exceptions/*.js",
     "#enums/*": "./app/enums/*.js",

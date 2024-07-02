@@ -15,10 +15,10 @@ export default class Event extends BaseModel {
   @column()
   declare description: string
 
-  @column.dateTime()
+  @column.date()
   declare startDate: DateTime
 
-  @column.dateTime()
+  @column.date()
   declare endDate: DateTime
 
   @column()

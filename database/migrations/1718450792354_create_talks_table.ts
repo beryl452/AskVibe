@@ -17,8 +17,8 @@ export default class extends BaseSchema {
         })
         .defaultTo('PENDING')
       table.integer('duration').notNullable()
-      table.dateTime('start_date_time').nullable()
-      table.dateTime('end_date_time').nullable()
+      table.dateTime('start_date_time', { useTz: true }).nullable()
+      table.dateTime('end_date_time', { useTz: true }).nullable()
       table.string('location', 255).notNullable()
 
       table.timestamp('created_at')
