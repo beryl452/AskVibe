@@ -16,6 +16,8 @@
   "imports": {
     "#core/*": "./app/core/*.js",
     "#auth/*": "./app/auth/*.js",
+    "#events/*": "./app/events/*.js",
+    "#talks/*": "./app/talks/*.js",
     "#controllers/*": "./app/controllers/*.js",
     "#exceptions/*": "./app/exceptions/*.js",
     "#enums/*": "./app/enums/*.js",
@@ -23,7 +25,6 @@
     "#mails/*": "./app/mails/*.js",
     "#services/*": "./app/services/*.js",
     "#listeners/*": "./app/listeners/*.js",
-    "#events/*": "./app/events/*.js",
     "#middleware/*": "./app/middleware/*.js",
     "#validators/*": "./app/validators/*.js",
     "#presenters/*": "./app/presenters/*.js",

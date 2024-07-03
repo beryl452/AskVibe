@@ -3,7 +3,7 @@ import { BaseModel, belongsTo, column, hasMany, manyToMany } from '@adonisjs/luc
 import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relations'
 import Role from '#models/role'
 import User from '#auth/models/user'
-import Talk from '#models/talk'
+import Talk from '../../talks/models/talk.js'
 
 export default class Event extends BaseModel {
   @column({ isPrimary: true })
@@ -15,10 +15,10 @@ export default class Event extends BaseModel {
   @column()
   declare description: string
 
-  @column.date()
+  @column.dateTime()
   declare startDate: DateTime
 
-  @column.date()
+  @column.dateTime()
   declare endDate: DateTime
 
   @column()

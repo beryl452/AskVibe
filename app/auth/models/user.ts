@@ -3,7 +3,7 @@ import { BaseModel, belongsTo, column, hasMany, manyToMany } from '@adonisjs/luc
 import Event from '#events/models/event'
 import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relations'
 import Role from '#models/role'
-import Talk from '#models/talk'
+import Talk from '../../talks/models/talk.js'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })

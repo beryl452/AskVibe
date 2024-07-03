@@ -1,8 +1,9 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, column, manyToMany } from '@adonisjs/lucid/orm'
-import { TalkStatus } from '#enums/talk_status'
+import { BaseModel, beforeCreate, belongsTo, column, manyToMany } from '@adonisjs/lucid/orm'
+import { TalkStatus } from '../enums/talk_status.js'
 import type { BelongsTo, ManyToMany } from '@adonisjs/lucid/types/relations'
 import Event from '#events/models/event'
+import User from '#auth/models/user'
 
 export default class Talk extends BaseModel {
   @column({ isPrimary: true })
@@ -20,10 +21,10 @@ export default class Talk extends BaseModel {
   @column()
   declare duration: number
 
-  @column()
+  @column.date()
   declare startDateTime: DateTime
 
-  @column()
+  @column.date()
   declare endDateTime: DateTime
 
   @column()
@@ -38,11 +39,18 @@ export default class Talk extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
 
-  @manyToMany(() => Talk, {
+  @manyToMany(() => User, {
     pivotTable: 'collaborates',
   })
-  declare talks: ManyToMany<typeof Talk>
+  declare users: ManyToMany<typeof User>
 
   @belongsTo(() => Event)
   declare event: BelongsTo<typeof Event>
+
+  @beforeCreate()
+  static async setDuration(talk: Talk) {
+    if (!talk.duration) {
+      talk.duration = talk.startDateTime.diff(talk.endDateTime, 'minutes').as('minutes')
+    }
+  }
 }

@@ -59,12 +59,13 @@ export default class StoreEventRequest {
     }
 
     if (eventData.start_date) {
-      eventData.start_date = DateTime.fromISO(eventData.start_date, { setZone: true }).toISO()
-      console.log(eventData.start_date)
+      eventData.start_date = DateTime.fromISO(eventData.start_date, {
+        setZone: true,
+      }).toMillis()
     }
 
     if (eventData.end_date) {
-      eventData.end_date = DateTime.fromISO(eventData.end_date, { setZone: true }).toISO()
+      eventData.end_date = DateTime.fromISO(eventData.end_date, { setZone: true }).toMillis()
     }
     return request.validateUsing(this.validator, {
       data: {

@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import User from '#auth/models/user'
-import Talk from '#models/talk'
+import Talk from './talk.js'
 
 export default class Collaborate extends BaseModel {
   @column({ isPrimary: true })
