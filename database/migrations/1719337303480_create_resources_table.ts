@@ -13,8 +13,7 @@ export default class extends BaseSchema {
       table.timestamp('created_at')
       table.timestamp('updated_at')
 
-      table.uuid('event_id').references('events.id').onDelete('CASCADE')
-      table.unique(['HTTP_method', 'uri', 'event_id'])
+      table.unique(['HTTP_method', 'uri'])
     })
   }
 

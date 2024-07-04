@@ -8,6 +8,8 @@ export default class extends BaseSchema {
       table.uuid('id').primary().defaultTo(this.db.rawQuery('uuid_generate_v4()').knexQuery)
       table.string('name', 255).notNullable()
 
+      table.uuid('event_id').references('events.id').onDelete('CASCADE')
+
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })

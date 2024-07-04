@@ -1,8 +1,9 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, hasMany, manyToMany } from '@adonisjs/lucid/orm'
-import type { HasMany, ManyToMany } from '@adonisjs/lucid/types/relations'
+import { BaseModel, belongsTo, column, hasMany, manyToMany } from '@adonisjs/lucid/orm'
+import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relations'
 import Resource from '#models/resource'
 import Participe from '#events/models/participe'
+import Event from '#events/models/event'
 
 export default class Responsibility extends BaseModel {
   @column({ isPrimary: true })
@@ -10,6 +11,9 @@ export default class Responsibility extends BaseModel {
 
   @column()
   declare name: string
+
+  @column()
+  declare eventId: string
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
@@ -24,4 +28,7 @@ export default class Responsibility extends BaseModel {
     pivotTable: 'responsability_resources',
   })
   declare resources: ManyToMany<typeof Resource>
+
+  @belongsTo(() => Event)
+  declare event: BelongsTo<typeof Event>
 }
