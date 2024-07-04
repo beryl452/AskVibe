@@ -4,7 +4,7 @@ import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import User from '#auth/models/user'
 import Event from '#events/models/event'
 import Vote from '#models/vote'
-import Responsibility from '#models/responsibility'
+import Responsibility from '#events/models/authorization/responsibility'
 
 export default class Participe extends BaseModel {
   @column({ isPrimary: true })

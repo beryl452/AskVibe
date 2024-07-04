@@ -29,6 +29,10 @@ export default class StoreEventService {
     })
 
     await event.related('users').attach(eventData.organizer_ids)
+
+    // TODO: Create the event's resources
+    // TODO: Create organizer's responsability and assign it all resources
+
     return event
   }
 }
