@@ -2,8 +2,8 @@ import { DateTime } from 'luxon'
 import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
 import { VoteType } from '#enums/vote_type'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
-import Post from '#models/post'
-import Participe from '#models/participe'
+import Post from '../posts/models/post.js'
+import Participe from '#events/models/participe'
 
 export default class Vote extends BaseModel {
   @column({ isPrimary: true })

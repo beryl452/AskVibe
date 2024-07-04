@@ -17,13 +17,13 @@ export default class extends BaseSchema {
         .defaultTo('DRAFT')
       table.uuid('postable_id').nullable().references('posts.id').onDelete('CASCADE')
       table
-        .enu('postable_type', ['App/Models/Question', 'App/Models/Answer'], {
+        .enu('postable_type', ['Question', 'Answer'], {
           useNative: true,
           enumName: 'postable_type',
           existingType: false,
           schemaName: 'public',
         })
-        .defaultTo('App/Models/Question')
+        .defaultTo('Question')
         .notNullable()
       table.uuid('created_by').references('participes.id').onDelete('CASCADE')
       table.uuid('relative_to').references('talks.id').onDelete('CASCADE')

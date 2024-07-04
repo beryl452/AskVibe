@@ -8,10 +8,16 @@ import Responsibility from '#models/responsibility'
 
 export default class Participe extends BaseModel {
   @column({ isPrimary: true })
+  declare id: string
+
+  @column()
   declare eventId: string
 
-  @column({ isPrimary: true })
+  @column()
   declare userId: string
+
+  @column()
+  declare responsabilityId: string
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

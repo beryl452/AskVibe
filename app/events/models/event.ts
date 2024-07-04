@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, column, hasMany, manyToMany } from '@adonisjs/lucid/orm'
-import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relations'
+import { BaseModel, column, hasMany, manyToMany } from '@adonisjs/lucid/orm'
+import type { HasMany, ManyToMany } from '@adonisjs/lucid/types/relations'
 import Role from '#models/role'
 import User from '#auth/models/user'
 import Talk from '../../talks/models/talk.js'
@@ -30,9 +30,6 @@ export default class Event extends BaseModel {
   @column()
   declare isPublic: boolean
 
-  @column()
-  declare organizerId: string
-
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
@@ -43,14 +40,13 @@ export default class Event extends BaseModel {
   declare roles: HasMany<typeof Role>
 
   @manyToMany(() => User, {
+    localKey: 'id',
     pivotTable: 'participes',
-    pivotColumns: ['votes', 'responsibility'],
+    pivotColumns: ['id', 'votes', 'responsibility'],
+    pivotTimestamps: true,
   })
   declare users: ManyToMany<typeof User>
 
   @hasMany(() => Talk)
   declare talk: HasMany<typeof Talk>
-
-  @belongsTo(() => User)
-  declare organizer: BelongsTo<typeof User>
 }

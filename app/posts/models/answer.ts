@@ -1,8 +1,8 @@
 import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
-import Question from '#models/question'
+import Question from './question.js'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
-import Post from '#models/post'
-import { PostableType } from '#enums/postable_type'
+import Post from './post.js'
+import { PostableType } from '#posts/enums/postable_type'
 
 export default class Answer extends BaseModel {
   @column({ isPrimary: true })

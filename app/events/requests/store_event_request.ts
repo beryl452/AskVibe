@@ -34,12 +34,17 @@ export default class StoreEventRequest {
       }),
       is_public: vine.boolean(),
 
-      organizer_id: vine.string().uuid().isExists({ table: 'users', column: 'id' }),
+      organizer_ids: vine.array(
+        vine.string().uuid().isExists({
+          table: 'users',
+          column: 'id',
+        })
+      ),
     })
   )
 
   async handle() {
-    const { request } = this.ctx
+    const { auth, request } = this.ctx
     const eventData = request.only([
       'title',
       'description',
@@ -48,7 +53,7 @@ export default class StoreEventRequest {
       'location',
       'cover',
       'is_public',
-      'organizer_id',
+      'organizer_ids',
     ])
 
     if (request.file('cover')) {
@@ -67,6 +72,13 @@ export default class StoreEventRequest {
     if (eventData.end_date) {
       eventData.end_date = DateTime.fromISO(eventData.end_date, { setZone: true }).toMillis()
     }
+
+    if (!eventData.organizer_ids) {
+      typeof eventData.organizer_ids === 'object'
+        ? eventData.organizer_ids.push(auth.user!.id)
+        : (eventData.organizer_ids = [auth.user!.id])
+    }
+
     return request.validateUsing(this.validator, {
       data: {
         ...eventData,

@@ -8,6 +8,7 @@
 */
 
 import router from '@adonisjs/core/services/router'
+import { middleware } from '#start/kernel'
 const AuthController = () => import('#auth/controllers/auth_controller')
 const StoreEventController = () => import('#events/controllers/store_event_controller')
 const StoreTalkController = () => import('#talks/controllers/store_talk_controller')
@@ -29,11 +30,19 @@ router
 /*
  * Events
  */
-router.post('/events', [StoreEventController, 'execute']).as('events.store')
-router.get('/events/create', [StoreEventController, 'render']).as('events.create')
+router
+  .group(() => {
+    router.post('/events', [StoreEventController, 'execute']).as('events.store')
+    router.get('/events/create', [StoreEventController, 'render']).as('events.create')
+  })
+  .middleware(middleware.auth())
 
 /*
  * Talks
  */
-router.get('/talks/create', [StoreTalkController, 'render']).as('talks.create')
-router.post('/talks', [StoreTalkController, 'execute']).as('talks.store')
+router
+  .group(() => {
+    router.get('/talks/create', [StoreTalkController, 'render']).as('talks.create')
+    router.post('/talks', [StoreTalkController, 'execute']).as('talks.store')
+  })
+  .middleware(middleware.auth())

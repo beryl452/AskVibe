@@ -6,10 +6,9 @@ import type { HttpContext } from '@adonisjs/core/http'
 @inject()
 export default class StoreEventController {
   constructor(
-    private storeEventRequest: StoreEventRequest,
-    private storeEventService: StoreEventService
+    private storeEventService: StoreEventService,
+    private storeEventRequest: StoreEventRequest
   ) {}
-
   async render({ inertia }: HttpContext) {
     return inertia.render('events/store')
   }

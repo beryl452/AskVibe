@@ -13,7 +13,7 @@ interface EventFormData {
   location: string
   cover: File
   is_public: boolean
-  organizer_id: string
+  // organizer_id: string
 }
 
 const EventForm: React.FC<EventFormProps> = () => {
@@ -24,7 +24,7 @@ const EventForm: React.FC<EventFormProps> = () => {
     end_date: '',
     location: '',
     is_public: false,
-    organizer_id: '',
+    // organizer_id: '',
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -128,17 +128,17 @@ const EventForm: React.FC<EventFormProps> = () => {
           onChange={handleChange}
         />
       </div>
-      <div>
-        <label htmlFor="organizer_id">Organizer ID:</label>
-        <input
-          type="text"
-          id="organizer_id"
-          name="organizer_id"
-          value={formData.organizer_id}
-          onChange={handleChange}
-          required
-        />
-      </div>
+      {/*<div>*/}
+      {/*  <label htmlFor="organizer_id">Organizer ID:</label>*/}
+      {/*  <input*/}
+      {/*    type="text"*/}
+      {/*    id="organizer_id"*/}
+      {/*    name="organizer_id"*/}
+      {/*    value={formData.organizer_id}*/}
+      {/*    onChange={handleChange}*/}
+      {/*    required*/}
+      {/*  />*/}
+      {/*</div>*/}
       <button type="submit">Submit</button>
     </form>
   )

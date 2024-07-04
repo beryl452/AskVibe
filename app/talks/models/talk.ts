@@ -41,6 +41,7 @@ export default class Talk extends BaseModel {
 
   @manyToMany(() => User, {
     pivotTable: 'collaborates',
+    pivotTimestamps: true,
   })
   declare users: ManyToMany<typeof User>
 

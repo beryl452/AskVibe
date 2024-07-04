@@ -16,8 +16,6 @@ export default class extends BaseSchema {
 
       table.timestamp('created_at')
       table.timestamp('updated_at')
-
-      table.uuid('organizer_id').references('users.id').onDelete('CASCADE')
     })
   }
 

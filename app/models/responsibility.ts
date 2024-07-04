@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 import { BaseModel, column, hasMany, manyToMany } from '@adonisjs/lucid/orm'
 import type { HasMany, ManyToMany } from '@adonisjs/lucid/types/relations'
 import Resource from '#models/resource'
-import Participe from '#models/participe'
+import Participe from '#events/models/participe'
 
 export default class Responsibility extends BaseModel {
   @column({ isPrimary: true })

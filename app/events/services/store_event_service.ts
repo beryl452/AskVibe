@@ -18,15 +18,17 @@ export default class StoreEventService {
       })
     }
 
-    return Event.create({
+    const event = await Event.create({
       title: eventData.title,
       description: eventData.description,
       startDate: eventData.start_date,
       endDate: eventData.end_date,
       location: eventData.location,
       isPublic: eventData.is_public,
-      organizerId: eventData.organizer_id,
       cover: cover?.fileName,
     })
+
+    await event.related('users').attach(eventData.organizer_ids)
+    return event
   }
 }

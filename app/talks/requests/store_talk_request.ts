@@ -12,8 +12,6 @@ export default class StoreTalkRequest {
     vine.object({
       title: vine.string().trim().minLength(3).maxLength(255),
       description: vine.string().trim().minLength(10),
-      // talk_status: vine.enum(TalkStatus),
-      // duration: vine.number().min(1).max(1440), // 1 minute to 24 hours
       start_date_time: vine
         .date({
           formats: ['YYYY-MM-DD', 'x'],
@@ -28,7 +26,7 @@ export default class StoreTalkRequest {
         })
         .afterField('start_date_time')
         .beforeOrEqual((field) => {
-          const limitDate = (
+          return (
             DateTime.fromISO(
               dayjs(field.parent.start_date_time)
                 .add(86400000, 'millisecond')
@@ -38,9 +36,6 @@ export default class StoreTalkRequest {
               }
             ).toSQL({ includeOffset: false }) as string
           ).split('.')[0]
-
-          console.log(limitDate)
-          return limitDate
         })
         .transform((value) => {
           return DateTime.fromJSDate(value)
@@ -81,7 +76,6 @@ export default class StoreTalkRequest {
       }).toMillis()
     }
 
-    console.log(eventData.collaborator_ids)
     return request.validateUsing(this.validator, {
       data: {
         ...eventData,
