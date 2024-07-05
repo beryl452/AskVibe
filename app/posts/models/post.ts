@@ -1,9 +1,11 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
 import { PostableStatus } from '#posts/enums/postable_status'
 import { PostableType } from '#posts/enums/postable_type'
 import Vote from '#models/vote'
-import type { HasMany } from '@adonisjs/lucid/types/relations'
+import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
+import Participe from '#events/models/participe'
+import Talk from '#talks/models/talk'
 
 export default class Post extends BaseModel {
   @column({ isPrimary: true })
@@ -21,6 +23,12 @@ export default class Post extends BaseModel {
   @column()
   declare postableType: PostableType
 
+  @column()
+  declare createdBy: string
+
+  @column()
+  declare relativeTo: string | null
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
@@ -29,4 +37,14 @@ export default class Post extends BaseModel {
 
   @hasMany(() => Vote)
   declare votes: HasMany<typeof Vote>
+
+  @belongsTo(() => Participe, {
+    foreignKey: 'createdBy',
+  })
+  declare creator: BelongsTo<typeof Participe>
+
+  @belongsTo(() => Talk, {
+    foreignKey: 'relativeTo',
+  })
+  declare talk: BelongsTo<typeof Talk>
 }

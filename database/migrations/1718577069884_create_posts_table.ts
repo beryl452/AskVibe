@@ -26,7 +26,7 @@ export default class extends BaseSchema {
         .defaultTo('Question')
         .notNullable()
       table.uuid('created_by').references('participes.id').onDelete('CASCADE')
-      table.uuid('relative_to').references('talks.id').onDelete('CASCADE')
+      table.uuid('relative_to').references('talks.id').onDelete('CASCADE').nullable()
 
       table.timestamp('created_at')
       table.timestamp('updated_at')

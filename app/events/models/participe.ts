@@ -5,6 +5,7 @@ import User from '#auth/models/user'
 import Event from '#events/models/event'
 import Vote from '#models/vote'
 import Responsibility from '#events/models/authorization/responsibility'
+import Post from '#posts/models/post'
 
 export default class Participe extends BaseModel {
   @column({ isPrimary: true })
@@ -33,6 +34,9 @@ export default class Participe extends BaseModel {
 
   @hasMany(() => Vote)
   declare votes: HasMany<typeof Vote>
+
+  @hasMany(() => Post)
+  declare posts: HasMany<typeof Post>
 
   @belongsTo(() => Responsibility)
   declare responsibility: BelongsTo<typeof Responsibility>
