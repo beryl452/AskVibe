@@ -1,6 +1,6 @@
 import { ModelPaginatorContract } from '@adonisjs/lucid/types/model'
 import Event from '#events/models/event'
-import { PaginatePresenter } from '#presenters/paginate_presenter'
+import { PaginatePresenter } from '#events/presenters/paginate_presenter'
 import { inject } from '@adonisjs/core'
 
 @inject()

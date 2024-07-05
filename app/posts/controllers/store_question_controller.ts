@@ -20,7 +20,6 @@ export default class StoreQuestionController {
       await this.storeQuestionService.handle(questionData)
       response.status(201).send({ message: 'Question created successfully' })
     } catch (error) {
-      console.log(error)
       response.status(400).send({ message: error.messages || error.messages })
     }
   }

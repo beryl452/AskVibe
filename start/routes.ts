@@ -9,6 +9,7 @@
 
 import router from '@adonisjs/core/services/router'
 import { middleware } from '#start/kernel'
+const StoreVoteController = () => import('../app/vote/controllers/store_vote_controller.js')
 const StoreQuestionController = () => import('#posts/controllers/store_question_controller')
 const AuthController = () => import('#auth/controllers/auth_controller')
 const StoreEventController = () => import('#events/controllers/store_event_controller')
@@ -55,5 +56,14 @@ router
   .group(() => {
     router.get('/questions/create', [StoreQuestionController, 'render']).as('questions.create')
     router.post('/questions', [StoreQuestionController, 'execute']).as('questions.store')
+  })
+  .middleware(middleware.auth())
+
+/*
+ * Votes
+ */
+router
+  .group(() => {
+    router.get('/vote/:postableId/:voteType', [StoreVoteController, 'execute']).as('vote.store')
   })
   .middleware(middleware.auth())

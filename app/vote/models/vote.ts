@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon'
 import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
-import { VoteType } from '#enums/vote_type'
+import { VoteType } from '../enums/vote_type.js'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
-import Post from '../posts/models/post.js'
+import Post from '#posts/models/post'
 import Participe from '#events/models/participe'
 
 export default class Vote extends BaseModel {
