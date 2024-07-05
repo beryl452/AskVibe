@@ -9,6 +9,7 @@
 
 import router from '@adonisjs/core/services/router'
 import { middleware } from '#start/kernel'
+const StoreQuestionController = () => import('#posts/controllers/store_question_controller')
 const AuthController = () => import('#auth/controllers/auth_controller')
 const StoreEventController = () => import('#events/controllers/store_event_controller')
 const StoreTalkController = () => import('#talks/controllers/store_talk_controller')
@@ -44,5 +45,15 @@ router
   .group(() => {
     router.get('/talks/create', [StoreTalkController, 'render']).as('talks.create')
     router.post('/talks', [StoreTalkController, 'execute']).as('talks.store')
+  })
+  .middleware(middleware.auth())
+
+/*
+ * Posts
+ */
+router
+  .group(() => {
+    router.get('/questions/create', [StoreQuestionController, 'render']).as('questions.create')
+    router.post('/questions', [StoreQuestionController, 'execute']).as('questions.store')
   })
   .middleware(middleware.auth())

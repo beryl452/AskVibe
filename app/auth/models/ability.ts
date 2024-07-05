@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, manyToMany } from '@adonisjs/lucid/orm'
-import Role from '#models/role'
+import Role from '#auth/models/role'
 import type { ManyToMany } from '@adonisjs/lucid/types/relations'
 
 export default class Ability extends BaseModel {

@@ -4,6 +4,8 @@ import { inject } from '@adonisjs/core'
 import { HttpContext } from '@adonisjs/core/http'
 import { PostableType } from '#posts/enums/postable_type'
 
+// TODO: Create Service and controller for create Answer
+
 @inject()
 export default class StoreAnswerRequest extends BaseStorePostRequest {
   constructor(private ctx: HttpContext) {

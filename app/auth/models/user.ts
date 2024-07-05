@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 import { BaseModel, belongsTo, column, manyToMany } from '@adonisjs/lucid/orm'
 import Event from '#events/models/event'
 import type { BelongsTo, ManyToMany } from '@adonisjs/lucid/types/relations'
-import Role from '#models/role'
+import Role from '#auth/models/role'
 import Talk from '../../talks/models/talk.js'
 
 export default class User extends BaseModel {
