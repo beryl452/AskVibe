@@ -17,6 +17,7 @@ export default class extends BaseSchema {
       table.uuid('postable_id').references('posts.id').onDelete('CASCADE')
       table.uuid('participe_id').references('participes.id').onDelete('CASCADE')
 
+      table.unique(['postable_id', 'participe_id'])
       table.timestamp('created_at ')
       table.timestamp('updated_at')
     })

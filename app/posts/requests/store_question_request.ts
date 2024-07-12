@@ -20,7 +20,9 @@ export default class StoreQuestionRequest extends BaseStorePostRequest {
     const { request } = this.ctx
     const eventData = request.only(['content', 'status', 'relativeTo', 'postableType'])
 
-    eventData.postableType = PostableType.QUESTION
+    if (eventData.postableType !== PostableType.QUESTION) {
+      throw new Error(`Postable type must be ${PostableType.ANSWER}`)
+    }
 
     return request.validateUsing(this.validator, {
       data: {

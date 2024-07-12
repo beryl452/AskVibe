@@ -19,6 +19,7 @@
     "#events/*": "./app/events/*.js",
     "#talks/*": "./app/talks/*.js",
     "#posts/*": "./app/posts/*.js",
+    "#vote/*": "./app/vote/*.js",
     "#controllers/*": "./app/controllers/*.js",
     "#exceptions/*": "./app/exceptions/*.js",
     "#enums/*": "./app/enums/*.js",

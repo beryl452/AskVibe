@@ -26,3 +26,6 @@ yarn-error.log
 
 # Data
 uploads
+
+# Docker
+secrets

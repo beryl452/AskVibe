@@ -3,7 +3,7 @@ import { BaseModel, column, hasMany, manyToMany } from '@adonisjs/lucid/orm'
 import type { HasMany, ManyToMany } from '@adonisjs/lucid/types/relations'
 import Role from '#auth/models/role'
 import User from '#auth/models/user'
-import Talk from '../../talks/models/talk.js'
+import Talk from '#talks/models/talk'
 
 export default class Event extends BaseModel {
   @column({ isPrimary: true })
@@ -48,5 +48,5 @@ export default class Event extends BaseModel {
   declare users: ManyToMany<typeof User>
 
   @hasMany(() => Talk)
-  declare talk: HasMany<typeof Talk>
+  declare talks: HasMany<typeof Talk>
 }

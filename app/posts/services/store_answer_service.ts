@@ -5,23 +5,25 @@ import Participe from '#events/models/participe'
 import Post from '#posts/models/post'
 
 @inject()
-export default class StoreQuestionService {
+export default class StoreAnswerService {
   constructor(private ctx: HttpContext) {}
-  async handle(questionData: any) {
+  async handle(answerData: any) {
     const { auth } = this.ctx
 
-    const talk = await Talk.findOrFail(questionData.relativeTo)
+    const question = await Post.findOrFail(answerData.postableId)
+
+    const talk = await Talk.findOrFail(question.relativeTo)
 
     const participant = await Participe.query()
       .where({ userId: auth.user!.id, eventId: talk.eventId })
       .firstOrFail()
 
     return await Post.create({
-      content: questionData.content,
-      status: questionData.status,
-      postableType: questionData.postableType,
+      content: answerData.content,
+      status: answerData.status,
+      postableType: answerData.postableType,
       createdBy: participant.id,
-      relativeTo: questionData.relativeTo,
+      postableId: answerData.postableId,
     })
   }
 }

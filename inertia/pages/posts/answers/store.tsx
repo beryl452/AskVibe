@@ -3,22 +3,22 @@ import { router } from '@inertiajs/react'
 import { PostableStatus } from '#posts/enums/postable_status'
 import { PostableType } from '#posts/enums/postable_type'
 
-interface QuestionFormProps {
-  onSubmit: (questionData: QuestionFormData) => void
+interface AnswerFormProps {
+  onSubmit: (questionData: AnswerFormData) => void
 }
 
-interface QuestionFormData {
+interface AnswerFormData {
   content: string
   status: PostableStatus
-  relativeTo: string
+  postableId: string
   postableType: PostableType
 }
 
-const QuestionForm: React.FC<QuestionFormProps> = () => {
-  const [questionData, setFormData] = useState<Partial<QuestionFormData>>({
+const AnswerForm: React.FC<AnswerFormProps> = () => {
+  const [questionData, setFormData] = useState<Partial<AnswerFormData>>({
     content: '',
     status: PostableStatus.DRAFT,
-    relativeTo: '',
+    postableId: '',
     postableType: PostableType.QUESTION,
   })
 
@@ -33,9 +33,9 @@ const QuestionForm: React.FC<QuestionFormProps> = () => {
   }
 
   const handleSubmit = (e: React.FormEvent) => {
-    questionData.postableType = PostableType.QUESTION
+    questionData.postableType = PostableType.ANSWER
     e.preventDefault()
-    router.post('/questions', questionData)
+    router.post('/answers', questionData)
   }
 
   return (
@@ -64,12 +64,12 @@ const QuestionForm: React.FC<QuestionFormProps> = () => {
         </select>
       </div>
       <div>
-        <label htmlFor="relativeTo">relativeTo:</label>
+        <label htmlFor="postableId">postableId:</label>
         <input
           type="text"
-          id="relativeTo"
-          name="relativeTo"
-          value={questionData.relativeTo}
+          id="postableId"
+          name="postableId"
+          value={questionData.postableId}
           onChange={handleChange}
           required
         />
@@ -79,4 +79,4 @@ const QuestionForm: React.FC<QuestionFormProps> = () => {
   )
 }
 
-export default QuestionForm
+export default AnswerForm

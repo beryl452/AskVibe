@@ -4,7 +4,7 @@ import { VoteType } from '../enums/vote_type.js'
 import { inject } from '@adonisjs/core'
 
 @inject()
-export default class StoreVoteRequest {
+export default class UpdateVoteRequest {
   constructor(private ctx: HttpContext) {}
 
   validator = vine.compile(
@@ -12,6 +12,10 @@ export default class StoreVoteRequest {
       voteType: vine.enum(VoteType),
       postableId: vine.string().uuid().isExists({
         table: 'posts',
+        column: 'id',
+      }),
+      voteId: vine.string().uuid().isExists({
+        table: 'votes',
         column: 'id',
       }),
     })
@@ -23,6 +27,7 @@ export default class StoreVoteRequest {
     const voteData = {
       voteType: params.voteType,
       postableId: params.postableId,
+      voteId: params.voteId,
     }
     return request.validateUsing(this.validator, {
       data: {
