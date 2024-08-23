@@ -15,7 +15,10 @@ const StoreAnswerController = () => import('#posts/controllers/store_answer_cont
 const StoreVoteController = () => import('../app/vote/controllers/store_vote_controller.js')
 const StoreQuestionController = () => import('#posts/controllers/store_question_controller')
 const AuthController = () => import('#auth/controllers/auth_controller')
+
+const ListEventController = () => import('#events/controllers/list_event_controller')
 const StoreEventController = () => import('#events/controllers/store_event_controller')
+
 const StoreTalkController = () => import('#talks/controllers/store_talk_controller')
 
 /*
@@ -35,8 +38,10 @@ router
  */
 router
   .group(() => {
-    router.post('/events', [StoreEventController, 'execute']).as('events.store')
+    router.post('/events/store', [StoreEventController, 'execute']).as('events.store')
     router.get('/events/create', [StoreEventController, 'render']).as('events.create')
+
+    router.get('/events', [ListEventController, 'render']).as('events.index')
     router.on('/').renderInertia('home', { version: 6 })
   })
   .middleware(middleware.auth())

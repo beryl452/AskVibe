@@ -1,8 +1,8 @@
 import { Head } from '@inertiajs/react'
 import { InferPageProps } from '@adonisjs/inertia/types'
-import EventsController from '#controllers/events_controller'
+import ListEventController from '#events/controllers/list_event_controller'
 
-export default function Index(props: InferPageProps<EventsController, 'index'>) {
+export default function Index(props: InferPageProps<ListEventController, 'render'>) {
   const { events } = props
   return (
     <>
@@ -33,7 +33,7 @@ export default function Index(props: InferPageProps<EventsController, 'index'>) 
                   <td>{event.endDate}</td>
                   <td>{event.location}</td>
                   <td>
-                    <img src={event.cover} alt={event.title} />
+                    <img width={35} height={35} src={event.cover} alt={event.title} />
                   </td>
                   <td>{event.createdAt}</td>
                   <td>{event.updatedAt}</td>

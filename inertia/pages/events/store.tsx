@@ -55,7 +55,7 @@ const EventForm: React.FC<EventFormProps> = () => {
   const handleSubmit = (e: React.FormEvent) => {
     console.log(formData)
     e.preventDefault()
-    router.post('/events', formData)
+    router.post('/events/store', formData)
   }
 
   return (

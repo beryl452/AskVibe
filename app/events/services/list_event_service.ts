@@ -1,7 +1,7 @@
 import { HttpContext } from '@adonisjs/core/http'
 import { inject } from '@adonisjs/core'
 import Event from '#events/models/event'
-import Participe from '#events/models/participe'
+// import Participe from '#events/models/participe'
 
 @inject()
 export default class ListEventService {
@@ -18,7 +18,7 @@ export default class ListEventService {
 
   // async participateTo(parameters: { page: number; limit: number }) {
   //   const { auth } = this.ctx
-  //
+
   //   const participant = await Participe.query().where({ userId: auth.user!.id }).preload('event')
   // }
 }

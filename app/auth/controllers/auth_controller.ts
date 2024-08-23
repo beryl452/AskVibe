@@ -37,7 +37,6 @@ export default class AuthController {
      */
     const socialUserInfo = await gh.user()
 
-    console.log(socialUserInfo)
     await new SocialAuth(socialUserInfo, params.provider)
       .onFindOrCreate(async (user: User) => {
         await user.save()
