@@ -8,9 +8,37 @@ export default class AuthController {
   }
 
   async callback({ ally, auth, params, response }: HttpContext) {
-    const socialUser = await ally.use(params.provider).user()
+    const gh = await ally.use(params.provider)
+    /**
+     * User has denied access by canceling
+     * the login flow
+     */
+    if (gh.accessDenied()) {
+      return 'You have cancelled the login process'
+    }
 
-    await new SocialAuth(socialUser, params.provider)
+    /**
+     * OAuth state verification failed. This happens when the
+     * CSRF cookie gets expired.
+     */
+    if (gh.stateMisMatch()) {
+      return 'We are unable to verify the request. Please try again'
+    }
+
+    /**
+     * GitHub responded with some error
+     */
+    if (gh.hasError()) {
+      return gh.getError()
+    }
+
+    /**
+     * Access user info
+     */
+    const socialUserInfo = await gh.user()
+
+    console.log(socialUserInfo)
+    await new SocialAuth(socialUserInfo, params.provider)
       .onFindOrCreate(async (user: User) => {
         await user.save()
         await auth.use('web').login(user)

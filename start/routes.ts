@@ -9,6 +9,7 @@
 
 import router from '@adonisjs/core/services/router'
 import { middleware } from '#start/kernel'
+
 const UpdateVoteController = () => import('#vote/controllers/update_vote_controller')
 const StoreAnswerController = () => import('#posts/controllers/store_answer_controller')
 const StoreVoteController = () => import('../app/vote/controllers/store_vote_controller.js')
